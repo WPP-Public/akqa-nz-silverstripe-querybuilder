@@ -1,0 +1,7 @@
+---
+Name: QueryBuilder
+After: 'silverstripe-querybuilder/*'
+---
+Injector:
+  QueryBuilder:
+    class: Heyday\QueryBuilder\QueryBuilder
