@@ -79,7 +79,7 @@ class QueryBuilder implements QueryBuilderInterface
      */
     public function getList()
     {
-        if (!$this->listCache === false) {
+        if ($this->listCache === false) {
             $rows = $this->getQuery()->execute();
             $results = array();
 

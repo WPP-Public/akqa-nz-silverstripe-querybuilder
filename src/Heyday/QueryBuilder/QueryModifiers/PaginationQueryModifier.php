@@ -28,8 +28,6 @@ class PaginationQueryModifier implements QueryModifierInterface
     {
         $query->setLimit($this->getLimit());
 
-        $query->setOrderBy()
-
         return $query;
     }
 }
