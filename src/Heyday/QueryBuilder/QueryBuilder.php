@@ -1,17 +1,41 @@
 <?php
+
 namespace Heyday\QueryBuilder;
 
 use Heyday\QueryBuilder\Interfaces\QueryBuilderInterface;
 use Heyday\QueryBuilder\Interfaces\QueryModifierInterface;
 
+/**
+ * @package Heyday\QueryBuilder
+ */
 class QueryBuilder implements QueryBuilderInterface
 {
+    /**
+     * @var array
+     */
     protected $queryModifiers = [];
+    /**
+     * @var array
+     */
     protected $data = [];
+    /**
+     * @var bool
+     */
     protected $listCache = false;
+    /**
+     * @var bool
+     */
     protected $queryCache = false;
+    /**
+     * @var null
+     */
     protected $dataClass;
 
+    /**
+     * @param null $dataClass
+     * @param array $queryModifiers
+     * @param array $modifierData
+     */
     public function __construct($dataClass = null, array $queryModifiers = [], array $modifierData = [])
     {
         $this->dataClass = $dataClass;
@@ -19,25 +43,9 @@ class QueryBuilder implements QueryBuilderInterface
         $this->setData($modifierData);
     }
 
-    protected function createDataObject($row)
-    {
-        $model = \DataModel::inst();
-
-        if (empty($row['RecordClassName'])) {
-            $row['RecordClassName'] = $row['ClassName'];
-        }
-
-        if (class_exists($row['RecordClassName'])) {
-            $item = \Injector::inst()->create($row['RecordClassName'], $row, false, $model);
-        } else if ($this->dataClass) {
-            $item = Injector::inst()->create($this->dataClass, $row, false, $model);
-        } else {
-            return null;
-        }
-
-        return $item;
-    }
-
+    /**
+     *
+     */
     protected function invalidateCache()
     {
         $this->listCache = false;
@@ -58,9 +66,7 @@ class QueryBuilder implements QueryBuilderInterface
             }
 
             if (is_array($this->queryModifiers)) {
-
                 foreach ($this->queryModifiers as $queryModifier) {
-
                     if ($queryModifier instanceof QueryModifierInterface) {
                         $queryModifier->modify($this->queryCache, $this->data);
                     } elseif (is_callable($queryModifier)) {
@@ -84,7 +90,7 @@ class QueryBuilder implements QueryBuilderInterface
             $results = array();
 
             foreach ($rows as $row) {
-                if ($do = $this->createDataObject($row)) {
+                if ($do = createDataObject($this->dataClass, $row)) {
                     $results[] = $do;
                 }
             }

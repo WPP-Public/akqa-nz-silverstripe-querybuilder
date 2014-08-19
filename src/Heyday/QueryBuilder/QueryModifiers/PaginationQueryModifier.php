@@ -4,9 +4,19 @@ namespace Heyday\QueryBuilder\QueryModifiers;
 
 use Heyday\QueryBuilder\Interfaces\QueryModifierInterface;
 
+/**
+ * @package Heyday\QueryBuilder\QueryModifiers
+ */
 class PaginationQueryModifier implements QueryModifierInterface
 {
+    /**
+     * @var int
+     */
     protected $limit;
+
+    /**
+     * @var int
+     */
     protected $start;
 
     /**
@@ -19,11 +29,19 @@ class PaginationQueryModifier implements QueryModifierInterface
         $this->start = $start;
     }
 
+    /**
+     * @return string
+     */
     protected function getLimit()
     {
         return $this->start . ', ' . (int) $this->limit;
     }
 
+    /**
+     * @param \SQLQuery $query
+     * @param array $data
+     * @return \SQLQuery
+     */
     public function modify(\SQLQuery $query, array $data)
     {
         $query->setLimit($this->getLimit());

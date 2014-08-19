@@ -2,6 +2,9 @@
 
 namespace Heyday\QueryBuilder\Interfaces;
 
+/**
+ * @package Heyday\QueryBuilder\Interfaces
+ */
 interface QueryBuilderInterface
 {
     /**
@@ -42,5 +45,4 @@ interface QueryBuilderInterface
      * @param array $data
      */
     public function setData(array $data);
-
 }

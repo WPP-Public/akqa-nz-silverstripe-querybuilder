@@ -2,6 +2,9 @@
 
 namespace Heyday\QueryBuilder\Interfaces;
 
+/**
+ * @package Heyday\QueryBuilder\Interfaces
+ */
 interface QueryModifierInterface
 {
     /**
