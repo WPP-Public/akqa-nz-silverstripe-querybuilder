@@ -94,7 +94,7 @@ class QueryBuilder implements QueryBuilderInterface
                     $results[] = $do;
                 }
             }
-            $this->listCache = count($results) ? new \ArrayList($results) : null;
+            $this->listCache = new \ArrayList($results);
         }
 
         return $this->listCache;
