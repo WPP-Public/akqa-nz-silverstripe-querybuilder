@@ -11,7 +11,7 @@ use Heyday\QueryBuilder\Interfaces\QueryModifierInterface;
 class QueryBuilder implements QueryBuilderInterface
 {
     /**
-     * @var array
+     * @var \Heyday\QueryBuilder\Interfaces\QueryModifierInterface[]
      */
     protected $queryModifiers = [];
     /**
@@ -79,7 +79,6 @@ class QueryBuilder implements QueryBuilderInterface
         return $this->queryCache;
     }
 
-
     /**
      * @return \ArrayList
      */
@@ -87,23 +86,23 @@ class QueryBuilder implements QueryBuilderInterface
     {
         if ($this->listCache === false) {
             $rows = $this->getQuery()->execute();
-            $results = array();
+            $results = [];
 
             foreach ($rows as $row) {
                 if ($do = createDataObject($this->dataClass, $row)) {
                     $results[] = $do;
                 }
             }
+
             $this->listCache = new \ArrayList($results);
         }
 
         return $this->listCache;
     }
 
-
     /**
      * @param callable|QueryModifierInterface $queryModifier
-     * @return mixed|void
+     * @return \Heyday\QueryBuilder\QueryBuilder
      * @throws \Exception
      */
     public function addQueryModifier($queryModifier)
@@ -116,17 +115,21 @@ class QueryBuilder implements QueryBuilderInterface
                 'a QueryModifier must implement the Heyday\ListQueryOrganiser\Interfaces\QueryModifierInterface interface'
             );
         }
+
+        return $this;
     }
 
     /**
      * @param array $queryModifiers
-     * @return mixed
+     * @return \Heyday\QueryBuilder\QueryBuilder
      */
     public function setQueryModifiers(array $queryModifiers)
     {
         foreach ($queryModifiers as $queryModifier) {
             $this->addQueryModifier($queryModifier);
         }
+        
+        return $this;
     }
 
     /**
@@ -139,11 +142,13 @@ class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param array $data
+     * @return \Heyday\QueryBuilder\QueryBuilder
      */
     public function setData(array $data)
     {
         $this->data = \Convert::raw2sql($data);
         $this->invalidateCache();
+        
+        return $this;
     }
-
 } 

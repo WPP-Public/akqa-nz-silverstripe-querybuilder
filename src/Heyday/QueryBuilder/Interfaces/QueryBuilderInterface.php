@@ -8,13 +8,6 @@ namespace Heyday\QueryBuilder\Interfaces;
 interface QueryBuilderInterface
 {
     /**
-     * @param string $dataClass
-     * @param array $queryModifiers
-     * @param array $modifierData
-     */
-    public function __construct($dataClass = null, array $queryModifiers = [], array $modifierData = []);
-
-    /**
      * @return \SQLQuery
      */
     public function getQuery();
