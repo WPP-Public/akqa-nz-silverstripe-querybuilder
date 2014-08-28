@@ -47,18 +47,6 @@ class UnionQueryBuilder extends QueryBuilder
     }
 
     /**
-     * @return int
-     */
-    public function getUnlimitedCount()
-    {
-        $query = clone $this->getQuery();
-
-        $query->setLimit(null);
-
-        return $query->count();
-    }
-
-    /**
      * @return string
      */
     protected function getUnionedQuery()
