@@ -10,7 +10,8 @@ interface QueryModifierInterface
     /**
      * @param \SQLQuery $query
      * @param array $data
+     * @param \Heyday\QueryBuilder\Interfaces\QueryBuilderInterface $queryBuilder
      * @return mixed
      */
-    public function modify(\SQLQuery $query, array $data);
+    public function modify(\SQLQuery $query, array $data, QueryBuilderInterface $queryBuilder);
 }

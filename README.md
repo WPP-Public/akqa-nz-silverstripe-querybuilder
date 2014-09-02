@@ -43,7 +43,7 @@ class PaginationQueryModifier implements QueryModifierInterface
         return $this->start . ', ' . (int) $this->limit;
     }
 
-    public function modify(\SQLQuery $query, array $data)
+    public function modify(\SQLQuery $query, array $data, \Heyday\QueryBuilder\Interfaces\QueryBuilderInterface $queryBuilder)
     {
         $query->setLimit($this->getLimit());
 

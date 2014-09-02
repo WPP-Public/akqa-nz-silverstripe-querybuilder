@@ -10,37 +10,56 @@ use Heyday\QueryBuilder\Interfaces\QueryModifierInterface;
  */
 class QueryBuilder implements QueryBuilderInterface
 {
-    /**
-     * @var \Heyday\QueryBuilder\Interfaces\QueryModifierInterface[]
-     */
+    /** @var \Heyday\QueryBuilder\Interfaces\QueryModifierInterface[] */
     protected $queryModifiers = [];
-    /**
-     * @var array
-     */
+
+    /** @var array */
     protected $data = [];
-    /**
-     * @var bool
-     */
+
+    /** @var bool */
     protected $listCache = false;
-    /**
-     * @var bool
-     */
+
+    /** @var bool */
     protected $queryCache = false;
-    /**
-     * @var null
-     */
+
+    /** @var null */
     protected $dataClass;
+    
+    /** @var string */
+    protected $stage;
 
     /**
      * @param null $dataClass
      * @param array $queryModifiers
      * @param array $modifierData
      */
-    public function __construct($dataClass = null, array $queryModifiers = [], array $modifierData = [])
+    public function __construct(
+        $dataClass = null,
+        array $queryModifiers = [],
+        array $modifierData = []
+    )
     {
         $this->dataClass = $dataClass;
         $this->setQueryModifiers($queryModifiers);
         $this->setData($modifierData);
+    }
+
+    /**
+     * @param string $stage
+     * @return \Heyday\QueryBuilder\QueryBuilder
+     */
+    public function setStage($stage)
+    {
+        $this->stage = $stage;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStage()
+    {
+        return $this->stage;
     }
 
     /**
@@ -60,6 +79,10 @@ class QueryBuilder implements QueryBuilderInterface
         if (!$this->queryCache) {
             if ($this->dataClass) {
                 $dataQuery = new \DataQuery($this->dataClass);
+                if ($this->stage) {
+                    $dataQuery->setQueryParam('Versioned.mode', 'stage');
+                    $dataQuery->setQueryParam('Versioned.stage', $this->stage);
+                }
                 $this->queryCache = $dataQuery->getFinalisedQuery();
             } else {
                 $this->queryCache = new \SQLQuery();
@@ -68,9 +91,9 @@ class QueryBuilder implements QueryBuilderInterface
             if (is_array($this->queryModifiers)) {
                 foreach ($this->queryModifiers as $queryModifier) {
                     if ($queryModifier instanceof QueryModifierInterface) {
-                        $queryModifier->modify($this->queryCache, $this->data);
+                        $queryModifier->modify($this->queryCache, $this->data, $this);
                     } elseif (is_callable($queryModifier)) {
-                        $queryModifier($this->queryCache, $this->data);
+                        $queryModifier($this->queryCache, $this->data, $this);
                     }
                 }
             }
