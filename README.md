@@ -27,7 +27,7 @@ Query builder is a wrapper around the `SQLQuery` object, providing two ways to m
 
 ## Usage
 
-### Implementing `Heyday\QueryBuilder\Interfaces\QueryModifierInterface`
+### Implementing QueryModifierInterface
 
 This is a very general modifier, modifiers you build might be more specific to your model.
 
