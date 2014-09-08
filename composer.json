@@ -2,18 +2,24 @@
 	"name": "heyday/silverstripe-querybuilder",
 	"type": "silverstripe-module",
 	"description": "Builds complex and composable queries to retrieve ArrayLists in SilverStripe",
-	"authors": [
-		{
-			"name": "Glenn Bautista",
-			"email": "glenn@heyday.co.nz"
-		}
-	],
+	"authors": [{
+		"name": "Glenn Bautista",
+		"email": "glenn@heyday.co.nz"
+	}],
 	"require": {
 		"php": ">=5.4.0",
 		"composer/installers": "~1.0",
 		"silverstripe/framework": "3.1.*"
 	},
 	"autoload": {
-		"files": ["src/Heyday/QueryBuilder/functions.php"]
+		"files": ["src/functions.php"],
+		"psr-4": {
+			"Heyday\\QueryBuilder\\": "src/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.2.x-dev"
+		}
 	}
 }

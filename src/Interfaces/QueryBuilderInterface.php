@@ -5,7 +5,7 @@ namespace Heyday\QueryBuilder\Interfaces;
 /**
  * @package Heyday\QueryBuilder\Interfaces
  */
-interface QueryBuilderInterface
+interface QueryBuilderInterface extends \SS_List
 {
     /**
      * @return \SQLQuery

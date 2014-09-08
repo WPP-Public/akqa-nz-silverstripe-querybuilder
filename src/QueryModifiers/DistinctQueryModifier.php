@@ -3,6 +3,7 @@
 namespace Heyday\QueryBuilder\QueryModifiers;
 
 use Heyday\QueryBuilder\Interfaces\QueryModifierInterface;
+use Heyday\QueryBuilder\Interfaces\QueryBuilderInterface;
 
 /**
  * @package Heyday\QueryBuilder\QueryModifiers
@@ -14,7 +15,7 @@ class DistinctQueryModifier implements QueryModifierInterface
      * @param array $data
      * @return \SQLQuery
      */
-    public function modify(\SQLQuery $query, array $data, \Heyday\QueryBuilder\Interfaces\QueryBuilderInterface $queryBuilder)
+    public function modify(\SQLQuery $query, array $data, QueryBuilderInterface $queryBuilder)
     {
         $query->setDistinct(true);
 
