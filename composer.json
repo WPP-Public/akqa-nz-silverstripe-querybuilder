@@ -2,6 +2,7 @@
 	"name": "heyday/silverstripe-querybuilder",
 	"type": "silverstripe-module",
 	"description": "Builds complex and composable queries to retrieve ArrayLists in SilverStripe",
+	"license": "MIT",
 	"authors": [{
 		"name": "Glenn Bautista",
 		"email": "glenn@heyday.co.nz"
