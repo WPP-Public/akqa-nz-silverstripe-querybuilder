@@ -1,7 +1,5 @@
 # SilverStripe Query Builder
 
-This module now requires SilverStripe 3.2, see branch 0.1 for the SilverStripe 3.1 compatible version.
-
 Provides a way to create queries that are flexible and reusable in SilverStripe. A lot like Search Filters.
 
 ## Installation (with composer)
